@@ -19,16 +19,43 @@ DomElement.prototype.show = function() {
       elem.setAttribute("id",this.selector.slice(1));
     }
     document.querySelector("body").append(elem);
-    elem.style.cssText = `height: ${this.height};
+    elem.style.cssText = `position: absolute;
+                          left: 100px; top: 100px;
+                          height: ${this.height};
                           width: ${this.width};
                           background: ${this.bg};
-                          font-size: ${this.fontSize};`;
+                          font-size: ${this.fontSize};
+                          `;
     elem.textContent = "Любой текст";
   };
 };
 
-let myElement = new DomElement(".testElem","200px","500px","#a5faaa","20pt");
-myElement.show();
+let sqer = new DomElement(".testElem","100px","100px","#a5faaa","20pt");
 
-let myElement2 = new DomElement("#testElem","400px","100px","#ff9999","10pt");
-myElement2.show();
+document.addEventListener("DOMContentLoaded", sqer.show.bind(sqer));
+
+document.addEventListener("keydown", function(event) {
+  let sqrRender = document.querySelector(sqer.selector);
+  let dx = 0, dy = 0;
+  let key = event.keyCode;
+  switch(key) {
+    case 38:
+      dy -= 10;
+      break;
+    case 40:
+      dy += 10;
+      break;
+    case 37:
+      dx -= 10;
+      break;
+    case 39:
+      dx += 10;
+      break;    
+  }
+  sqrRender.style.left = parseInt(sqrRender.style.left) + dx + "px";
+  sqrRender.style.top = parseInt(sqrRender.style.top) + dy + "px";
+
+})
+
+
+
